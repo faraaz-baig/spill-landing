@@ -1,36 +1,73 @@
-## Usage
+# Spill Landing Page
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
+A minimalist landing page for Spill - a distraction-free writing app. Built with SolidJS and powered by Bun.js for fast development and builds.
 
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+## Features
 
-```bash
-$ npm install # or pnpm install or yarn install
-```
+- 📧 Email collection with Supabase integration
+- 📱 Mobile-responsive design with device detection
+- 🎨 Clean, minimalist UI
+- ⚡ Fast builds with Bun.js
+- 🔒 Secure email storage with Row Level Security
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+## Prerequisites
+
+- [Bun.js](https://bun.sh) (latest version)
+- A Supabase account and project
+
+## Setup
+
+1. **Clone and install dependencies:**
+   ```bash
+   bun install
+   ```
+
+2. **Configure Supabase:**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Fill in your Supabase credentials in the `.env` file. See [SUPABASE_SETUP.md](./SUPABASE_SETUP.md) for detailed instructions.
 
 ## Available Scripts
 
-In the project directory, you can run:
+### `bun run dev`
 
-### `npm run dev` or `npm start`
+Runs the app in development mode.<br>
+Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The page will reload if you make edits.
 
-The page will reload if you make edits.<br>
-
-### `npm run build`
+### `bun run build`
 
 Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+Optimizes the build for the best performance with minification and hashed filenames.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### `bun run serve`
+
+Serves the production build locally for testing.
+
+## Project Structure
+
+```
+src/
+├── App.tsx          # Main application component
+├── App.module.css   # Component styles
+├── supabase.ts      # Database integration
+└── index.tsx        # Application entry point
+```
 
 ## Deployment
 
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+You can deploy the `dist` folder to any static host provider:
+- Vercel
+- Netlify
+- Surge
+- GitHub Pages
 
-## This project was created with the [Solid CLI](https://github.com/solidjs-community/solid-cli)
+## Built With
+
+- [SolidJS](https://solidjs.com) - Reactive UI framework
+- [Bun.js](https://bun.sh) - Fast JavaScript runtime and package manager
+- [Supabase](https://supabase.com) - Backend as a Service
+- [Vite](https://vitejs.dev) - Build tool
