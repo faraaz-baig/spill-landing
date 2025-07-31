@@ -6,7 +6,7 @@
   
   <!-- Main landing page -->
   <url>
-    <loc>https://spillitout.app/</loc>
+    <loc>https://tryspill.com/</loc>
     <lastmod>2024-12-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
   
   <!-- Download page (if separate) -->
   <url>
-    <loc>https://spillitout.app/download</loc>
+    <loc>https://tryspill.com/download</loc>
     <lastmod>2024-12-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
