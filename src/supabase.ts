@@ -101,22 +101,26 @@ export const storeEmailIfNew = async (email: string) => {
 
 // Function to trigger file download
 export const downloadApp = () => {
-  // For now, we'll create a placeholder download
-  // In a real app, you would have an actual file URL
-  const downloadUrl = '#' // Replace with actual download URL
+  // URL to your .dmg file - you can either:
+  // 1. Host it in the public folder: '/Spill.dmg'
+  // 2. Host it on a CDN or file hosting service
+  // 3. Use GitHub releases or similar
+  const downloadUrl = '/src/assets/Spill 1.0.dmg' // Path to the .dmg file in assets folder
   
-  if (downloadUrl === '#') {
-    // Simulate download for demo purposes
-    console.log('Download would start here')
-    alert('Download would start here! (Replace with actual download URL)')
-    return
+  try {
+    // Create a temporary link and trigger download
+    const link = document.createElement('a')
+    link.href = downloadUrl
+    link.download = 'Spill 1.0.dmg'
+    link.style.display = 'none'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    
+    console.log('Download initiated for:', downloadUrl)
+  } catch (error) {
+    console.error('Download failed:', error)
+    // Fallback: open in new tab if direct download fails
+    window.open(downloadUrl, '_blank')
   }
-  
-  // Create a temporary link and trigger download
-  const link = document.createElement('a')
-  link.href = downloadUrl
-  link.download = 'Spill.dmg' // or whatever your app file is named
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
 }
