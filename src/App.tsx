@@ -100,6 +100,33 @@ const App: Component = () => {
           <p class={styles.spillOut}><em>Spill</em> it out!</p>
         </div>
         
+        {/* Show video before email field on mobile */}
+        {isMobile() && (
+          <div class={styles.videoSection}>
+            <div class={styles.videoContainer}>
+              <video 
+                 class={styles.launchVideo}
+                 autoplay
+                 loop
+                 muted={isMuted()}
+                 playsinline
+                 preload="metadata"
+                 disablepictureinpicture
+               >
+                <source src="/Spill%20Launch%20Video%20.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <button 
+                 class={styles.muteButton}
+                 onClick={toggleMute}
+                 title={isMuted() ? 'Unmute video' : 'Mute video'}
+               >
+                 {isMuted() ? 'unmute' : 'mute'}
+               </button>
+            </div>
+          </div>
+        )}
+        
         <div class={styles.downloadSection}>
           <input 
             type="email" 
@@ -135,29 +162,32 @@ const App: Component = () => {
           <p class={styles.macOnly}>( MacOS only )</p>
         )}
         
-        <div class={styles.videoSection}>
-          <div class={styles.videoContainer}>
-            <video 
-               class={styles.launchVideo}
-               autoplay
-               loop
-               muted={isMuted()}
-               playsinline
-               preload="metadata"
-               disablepictureinpicture
-             >
-              <source src="/Spill Launch Video .mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <button 
-               class={styles.muteButton}
-               onClick={toggleMute}
-               title={isMuted() ? 'Unmute video' : 'Mute video'}
-             >
-               {isMuted() ? 'unmute' : 'mute'}
-             </button>
+        {/* Show video after email field on desktop */}
+        {!isMobile() && (
+          <div class={styles.videoSection}>
+            <div class={styles.videoContainer}>
+              <video 
+                 class={styles.launchVideo}
+                 autoplay
+                 loop
+                 muted={isMuted()}
+                 playsinline
+                 preload="metadata"
+                 disablepictureinpicture
+               >
+                <source src="/Spill%20Launch%20Video%20.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              <button 
+                 class={styles.muteButton}
+                 onClick={toggleMute}
+                 title={isMuted() ? 'Unmute video' : 'Mute video'}
+               >
+                 {isMuted() ? 'unmute' : 'mute'}
+               </button>
+            </div>
           </div>
-        </div>
+        )}
       </main>
       
       <footer class={styles.footer}>
