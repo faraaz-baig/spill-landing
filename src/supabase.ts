@@ -105,7 +105,7 @@ export const downloadApp = () => {
   // 1. Host it in the public folder: '/Spill.dmg'
   // 2. Host it on a CDN or file hosting service
   // 3. Use GitHub releases or similar
-  const downloadUrl = '/src/assets/Spill 1.0.dmg' // Path to the .dmg file in assets folder
+  const downloadUrl = '/Spill 1.0.dmg' // Path to the .dmg file in public folder
   
   try {
     // Create a temporary link and trigger download
