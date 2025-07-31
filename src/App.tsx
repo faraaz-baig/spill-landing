@@ -9,10 +9,13 @@ const App: Component = () => {
   const [message, setMessage] = createSignal('');
   const [isMobile, setIsMobile] = createSignal(false);
   const [isMuted, setIsMuted] = createSignal(true);
+  const [mobileVideoRef, setMobileVideoRef] = createSignal<HTMLVideoElement | null>(null);
+  const [desktopVideoRef, setDesktopVideoRef] = createSignal<HTMLVideoElement | null>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = createSignal(false);
   
   const isEmailValid = () => isValidEmail(email());
   
-  // Detect mobile device
+  // Detect mobile device and handle video autoplay
   onMount(() => {
     const checkMobile = () => {
       const userAgent = navigator.userAgent.toLowerCase();
@@ -24,6 +27,34 @@ const App: Component = () => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
+    // Handle video autoplay after component mounts
+    setTimeout(() => {
+      const setupVideo = (video: HTMLVideoElement) => {
+        // Add event listeners for video state
+        video.addEventListener('play', () => setIsVideoPlaying(true));
+        video.addEventListener('pause', () => setIsVideoPlaying(false));
+        video.addEventListener('ended', () => setIsVideoPlaying(false));
+        
+        // Try to play the video, handle autoplay restrictions
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Autoplay was prevented, video will remain paused
+            setIsVideoPlaying(false);
+          });
+        }
+      };
+      
+      const mobileVideo = mobileVideoRef();
+      const desktopVideo = desktopVideoRef();
+      
+      if (isMobile() && mobileVideo) {
+        setupVideo(mobileVideo);
+      } else if (!isMobile() && desktopVideo) {
+        setupVideo(desktopVideo);
+      }
+    }, 100);
+    
     return () => window.removeEventListener('resize', checkMobile);
   });
   
@@ -33,8 +64,28 @@ const App: Component = () => {
     setMessage(''); // Clear any previous messages
   };
   
+  const getCurrentVideo = () => {
+    return isMobile() ? mobileVideoRef() : desktopVideoRef();
+  };
+
   const toggleMute = () => {
-    setIsMuted(!isMuted());
+    const video = getCurrentVideo();
+    if (video) {
+      video.muted = !video.muted;
+      setIsMuted(video.muted);
+    }
+  };
+
+  const playVideo = () => {
+    const video = getCurrentVideo();
+    if (video) {
+      video.play().then(() => {
+        setIsVideoPlaying(true);
+      }).catch(() => {
+        // Handle play failure
+        setIsVideoPlaying(false);
+      });
+    }
   };
 
   const handleDownload = async () => {
@@ -105,17 +156,29 @@ const App: Component = () => {
           <div class={styles.videoSection}>
             <div class={styles.videoContainer}>
               <video 
+                 ref={setMobileVideoRef}
                  class={styles.launchVideo}
-                 autoplay
                  loop
-                 muted={isMuted()}
+                 muted
                  playsinline
-                 preload="metadata"
+                 preload="auto"
                  disablepictureinpicture
+                 webkit-playsinline
+                 x-webkit-airplay="allow"
+                 controls={false}
                >
-                <source src="/Spill%20Launch%20Video%20.mp4" type="video/mp4" />
+                <source src="/demo.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
+              {!isVideoPlaying() && (
+                <button 
+                   class={styles.playButton}
+                   onClick={playVideo}
+                   title="Play video"
+                 >
+                   ▶
+                 </button>
+              )}
               <button 
                  class={styles.muteButton}
                  onClick={toggleMute}
@@ -167,15 +230,18 @@ const App: Component = () => {
           <div class={styles.videoSection}>
             <div class={styles.videoContainer}>
               <video 
+                 ref={setDesktopVideoRef}
                  class={styles.launchVideo}
-                 autoplay
                  loop
-                 muted={isMuted()}
+                 muted
                  playsinline
-                 preload="metadata"
+                 preload="auto"
                  disablepictureinpicture
+                 webkit-playsinline
+                 x-webkit-airplay="allow"
+                 controls={false}
                >
-                <source src="/Spill%20Launch%20Video%20.mp4" type="video/mp4" />
+                <source src="/demo.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               <button 
@@ -192,7 +258,7 @@ const App: Component = () => {
       
       <footer class={styles.footer}>
         <div class={styles.footerLinks}>
-          <a href="https://github.com/faraaz-baig/spill" target="_blank" rel="noopener noreferrer" class={styles.footerLink}>Source Code</a>
+          <a href="https://github.com/faraaz-baig/spill-with-voice" target="_blank" rel="noopener noreferrer" class={styles.footerLink}>Source Code</a>
           <a href="#" class={styles.footerLink}>Join group chat</a>
         </div>
         <p class={styles.credit}>Built by <a href="https://faraazbaig.com" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Faraaz</strong></a> & <a href="https://linkedin.com/in/vishruth-n" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Vishruth</strong></a></p>
