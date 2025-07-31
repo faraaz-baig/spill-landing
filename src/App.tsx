@@ -8,6 +8,7 @@ const App: Component = () => {
   const [isLoading, setIsLoading] = createSignal(false);
   const [message, setMessage] = createSignal('');
   const [isMobile, setIsMobile] = createSignal(false);
+  const [isMuted, setIsMuted] = createSignal(true);
   
   const isEmailValid = () => isValidEmail(email());
   
@@ -32,6 +33,10 @@ const App: Component = () => {
     setMessage(''); // Clear any previous messages
   };
   
+  const toggleMute = () => {
+    setIsMuted(!isMuted());
+  };
+
   const handleDownload = async () => {
     if (!isEmailValid()) {
       setMessage('Please enter a valid email address');
@@ -80,7 +85,7 @@ const App: Component = () => {
     <div class={styles.container}>
       <main class={styles.main}>
         <h1 class={styles.title}>
-          Hey, this is <em class={styles.spill}>Spill</em>.
+          Hey, this is <em class={styles.spill}>Spill</em>.<span class={styles.cursor}>|</span>
         </h1>
         
         <p class={styles.description}>
@@ -129,6 +134,30 @@ const App: Component = () => {
         ) : (
           <p class={styles.macOnly}>( MacOS only )</p>
         )}
+        
+        <div class={styles.videoSection}>
+          <div class={styles.videoContainer}>
+            <video 
+               class={styles.launchVideo}
+               autoplay
+               loop
+               muted={isMuted()}
+               playsinline
+               preload="metadata"
+               disablepictureinpicture
+             >
+              <source src="/Spill Launch Video .mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <button 
+               class={styles.muteButton}
+               onClick={toggleMute}
+               title={isMuted() ? 'Unmute video' : 'Mute video'}
+             >
+               {isMuted() ? 'unmute' : 'mute'}
+             </button>
+          </div>
+        </div>
       </main>
       
       <footer class={styles.footer}>
