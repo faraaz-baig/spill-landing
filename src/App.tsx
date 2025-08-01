@@ -259,7 +259,7 @@ const App: Component = () => {
       <footer class={styles.footer}>
         <div class={styles.footerLinks}>
           <a href="https://github.com/faraaz-baig/spill-with-voice" target="_blank" rel="noopener noreferrer" class={styles.footerLink}>Source Code</a>
-          <a href="#" class={styles.footerLink}>Join group chat</a>
+          <a href="https://chat.whatsapp.com/FT9bhqnB1jm3wjDApW7eUb" class={styles.footerLink}>Join group chat</a>
         </div>
         <p class={styles.credit}>Built by <a href="https://faraazbaig.com" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Faraaz</strong></a> & <a href="https://linkedin.com/in/vishruth-n" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Vishruth</strong></a></p>
       </footer>
