@@ -256,6 +256,18 @@ const App: Component = () => {
         )}
       </main>
       
+      <div class={styles.productHuntSection}>
+          <a href="https://www.producthunt.com/products/spill-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-spill&#0045;2" target="_blank" rel="noopener noreferrer" class={styles.productHuntLink}>
+            <img 
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1001010&theme=light&t=1754299323226" 
+              alt="Spill - Minimalist freewriting app | Product Hunt" 
+              class={styles.productHuntBadge}
+              width="250" 
+              height="54" 
+            />
+          </a>
+        </div>
+      
       <footer class={styles.footer}>
         <div class={styles.footerLinks}>
           <a href="https://github.com/Vishruth-N/Spill" target="_blank" rel="noopener noreferrer" class={styles.footerLink}>Source Code</a>

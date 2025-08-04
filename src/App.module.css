@@ -230,6 +230,40 @@
   background: rgba(0, 0, 0, 0.8);
 }
 
+/* Product Hunt Section */
+.productHuntSection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.productHuntLink {
+  display: inline-block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.8;
+}
+
+.productHuntLink:hover {
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+.productHuntBadge {
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.productHuntLink:hover .productHuntBadge {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
 .footer {
   padding: 40px;
   display: flex;
@@ -382,5 +416,16 @@
     right: 12px;
     padding: 5px 8px;
     font-size: 0.75rem;
+  }
+  
+  .productHuntSection {
+    padding: 20px;
+    justify-content: center;
+  }
+  
+  .productHuntBadge {
+    width: 200px;
+    height: auto;
+    max-width: 100%;
   }
 }
