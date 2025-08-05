@@ -257,9 +257,9 @@ const App: Component = () => {
       </main>
       
       <div class={styles.productHuntSection}>
-          <a href="https://www.producthunt.com/products/spill-2?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-spill&#0045;2" target="_blank" rel="noopener noreferrer" class={styles.productHuntLink}>
+          <a href="https://www.producthunt.com/products/spill-2?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_source=badge-spill&#0045;2" target="_blank" rel="noopener noreferrer" class={styles.productHuntLink}>
             <img 
-              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1001010&theme=light&t=1754299323226" 
+              src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=1001010&theme=light&period=daily&t=1754382728781" 
               alt="Spill - Minimalist freewriting app | Product Hunt" 
               class={styles.productHuntBadge}
               width="250" 
