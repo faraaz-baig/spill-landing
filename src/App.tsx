@@ -273,7 +273,7 @@ const App: Component = () => {
           <a href="https://github.com/Vishruth-N/Spill" target="_blank" rel="noopener noreferrer" class={styles.footerLink}>Source Code</a>
           <a href="https://chat.whatsapp.com/FT9bhqnB1jm3wjDApW7eUb" class={styles.footerLink}>Join group chat</a>
         </div>
-        <p class={styles.credit}>Built by <a href="https://faraazbaig.com" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Faraaz</strong></a> & <a href="https://linkedin.com/in/vishruth-n" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Vishruth</strong></a></p>
+        <p class={styles.credit}>Built by <a href="https://faraazbaig.com" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Faraaz</strong></a> & <a href="https://x.com/rathorehq" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Digvijay</strong></a></p>
       </footer>
     </div>
   );
