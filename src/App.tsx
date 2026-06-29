@@ -96,39 +96,38 @@ const App: Component = () => {
     
     setIsLoading(true);
     setMessage('');
-    
+
+    // Try to save the email, but never block the download on it.
+    // The .dmg is a static file, so the download must work even if
+    // Supabase is unavailable/misconfigured.
+    let result: Awaited<ReturnType<typeof storeEmailIfNew>>;
     try {
-      const result = await storeEmailIfNew(email());
-      
-      if (result.success) {
-        if (isMobile()) {
-          // Mobile users: just collect email
-          if (result.isNew) {
-            setMessage('Thanks! We\'ll let you know when iOS drops.');
-          } else {
-            setMessage('You\'re already on the list. iOS coming soon!');
-          }
-        } else {
-          // Desktop users: collect email and download
-          if (result.isNew) {
-            setMessage('Email saved! Starting download...');
-          } else {
-            setMessage('Welcome back! Starting download...');
-          }
-          
-          // Start download immediately for desktop
-          setTimeout(() => {
-            downloadApp();
-            setMessage(result.isNew ? 'Thanks for signing up!' : 'Download started!');
-          }, 500);
-        }
-      } else {
-        setMessage('Something went wrong. Please try again.');
-      }
+      result = await storeEmailIfNew(email());
     } catch (error) {
-      setMessage('Something went wrong. Please try again.');
-    } finally {
+      result = { success: false, error, isNew: false };
+    }
+
+    if (isMobile()) {
+      // Mobile users: just collect email (no desktop download)
+      if (result.success && !result.isNew) {
+        setMessage('You\'re already on the list. iOS coming soon!');
+      } else {
+        // Show a friendly confirmation even if the save failed —
+        // we don't want mobile visitors to see a broken state.
+        setMessage('Thanks! We\'ll let you know when iOS drops.');
+      }
       setIsLoading(false);
+    } else {
+      // Desktop users: always download, regardless of the email save.
+      const savedOk = result.success;
+      setMessage('Starting download...');
+      setTimeout(() => {
+        downloadApp();
+        setMessage(savedOk
+          ? 'Download started!'
+          : 'Your email couldn\'t be saved due to an error, but your download has started.');
+        setIsLoading(false);
+      }, 500);
     }
   };
   
@@ -208,7 +207,7 @@ const App: Component = () => {
         </div>
         
         {message() && (
-          <p class={`${styles.message} ${message().includes('saved') || message().includes('Thanks') || message().includes('already on the list') || message().includes('Welcome back') || message().includes('Download started') ? styles.success : styles.error}`}>
+          <p class={`${styles.message} ${message().includes('valid email') ? styles.error : styles.success}`}>
             {message()}
           </p>
         )}
@@ -273,7 +272,7 @@ const App: Component = () => {
           <a href="https://github.com/Vishruth-N/Spill" target="_blank" rel="noopener noreferrer" class={styles.footerLink}>Source Code</a>
           <a href="https://chat.whatsapp.com/FT9bhqnB1jm3wjDApW7eUb" class={styles.footerLink}>Join group chat</a>
         </div>
-        <p class={styles.credit}>Built by <a href="https://faraazbaig.com" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Faraaz</strong></a> & <a href="https://x.com/rathorehq" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Digvijay</strong></a></p>
+        <p class={styles.credit}>Built by <a href="https://faraazbaig.com" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Faraaz</strong></a> & <a href="https://github.com/Vishruth-N" target="_blank" rel="noopener noreferrer" class={styles.creditLink}><strong>Vishruth</strong></a></p>
       </footer>
     </div>
   );
